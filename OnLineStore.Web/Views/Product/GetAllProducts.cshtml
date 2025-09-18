@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OnLineStore.Application.ViewModels.ProductViewModel>
+@{
+	ViewData["Title"] = "Product List";
+}
+<h1>Product List</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var product in Model)
+		{
+				<tr>
+					<td>@product.PId</td>
+					<td>@product.PName</td>
+					<td>@product.Price</td>
+					
+					<td>
+						<a asp-action="Edit" asp-route-id="@product.PId" class="btn btn-primary">Edit</a>
+						<a asp-action="Delete" asp-route-id="@product.PId" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+		}
+	</tbody>
