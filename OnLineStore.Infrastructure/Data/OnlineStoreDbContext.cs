@@ -44,7 +44,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("cart");
 
             entity.Property(e => e.TId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("T_ID");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.UId).HasColumnName("U_ID");
@@ -61,7 +61,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("cart_item");
 
             entity.Property(e => e.PId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("P_ID");
             entity.Property(e => e.ItemId).HasColumnName("Item_ID");
             entity.Property(e => e.Price)
@@ -87,7 +87,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("catagory");
 
             entity.Property(e => e.CId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("C_ID");
             entity.Property(e => e.CName)
                 .HasMaxLength(15)
@@ -105,7 +105,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("_Order");
 
             entity.Property(e => e.OId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("O_ID");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Paid).HasColumnName("paid");
@@ -135,7 +135,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("product");
 
             entity.Property(e => e.PId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("P_ID");
             entity.Property(e => e.CId).HasColumnName("C_ID");
             entity.Property(e => e.ImgePath)
@@ -163,7 +163,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("Review");
 
             entity.Property(e => e.RId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("R_ID");
             entity.Property(e => e.Comment)
                 .HasMaxLength(200)
@@ -189,7 +189,7 @@ public partial class OnlineStoreDbContext : DbContext
             entity.ToTable("_User");
 
             entity.Property(e => e.UId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("U_ID");
             entity.Property(e => e.Address)
                 .HasMaxLength(20)
@@ -207,9 +207,7 @@ public partial class OnlineStoreDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("U_name");
-            entity.Property(e => e.UidNew)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("UId_New");
+          
         });
 
         OnModelCreatingPartial(modelBuilder);

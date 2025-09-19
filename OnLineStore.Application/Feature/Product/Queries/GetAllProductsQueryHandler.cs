@@ -28,7 +28,8 @@ namespace OnLineStore.Application.Feature.Product.Queries
                 PId = p.PId,
                 PName = p.PName,
                 Price = p.Price,
-                ImgePath = p.ImgePath
+                ImgePath = p.ImgePath,
+                CId=p.CId
             });
             return Task.FromResult(ProductViewModel);
 

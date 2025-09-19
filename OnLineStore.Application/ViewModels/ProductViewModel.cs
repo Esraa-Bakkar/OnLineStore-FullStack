@@ -14,6 +14,7 @@ namespace OnLineStore.Application.ViewModels
 
         public decimal? Price { get; set; }
 
-        public string? ImgePath { get; set; }
+        public string ? ImgePath { get; set; }
+        public int? CId { get; set; }
     }
 }

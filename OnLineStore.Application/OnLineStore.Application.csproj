@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 
@@ -16,10 +17,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\OnLineStore.Infrastructure\OnLineStore.Infrastructure.csproj" />
 	</ItemGroup>
-
-
-	<ItemGroup>
-    <Folder Include="Feature\Product\Commands\" />
-  </ItemGroup>
 
 </Project>

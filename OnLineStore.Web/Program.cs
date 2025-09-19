@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnLineStore.Infrastructure.Data;
 using OnLineStore.Application.Feature.Product.Queries;
+using OnLineStore.Application.Feature.User.Commands;
 
 namespace OnLineStore.Web
 {
@@ -20,6 +21,10 @@ namespace OnLineStore.Web
 
             builder.Services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(typeof(GetAllProductsQueryHandler).Assembly));
+
+            builder.Services.AddMediatR(cfg =>
+                cfg.RegisterServicesFromAssemblies(typeof(GetAllUsersQueryHandler).Assembly));
+
 
             var app = builder.Build();
 

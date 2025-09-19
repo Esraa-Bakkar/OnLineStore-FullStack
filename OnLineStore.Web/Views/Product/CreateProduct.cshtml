@@ -1,0 +1,26 @@
+﻿@model OnLineStore.Application.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<h1>Create Product</h1>
+
+<form asp-action="CreateProduct" method="post">
+   <input asp-for="PId" type="hidden" />
+       <div class="form-group">
+        
+        <label asp-for="PName" class="control-label"></label>
+        <input asp-for="PName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CId" class="control-label"></label>
+        <input asp-for="CId" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+    <a asp-action="GetAllProducts" class="btn btn-secondary">Cancel</a>
+</form>

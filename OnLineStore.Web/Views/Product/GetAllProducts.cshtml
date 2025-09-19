@@ -2,6 +2,8 @@
 @{
 	ViewData["Title"] = "Product List";
 }
+<a asp-action="CreateProduct" class="btn btn-success mb-3">Create New Product</a>
+
 <h1>Product List</h1>
 <table class="table">
 	<thead>
@@ -9,6 +11,7 @@
 			<th>Id</th>
 			<th>Name</th>
 			<th>Price</th>
+			<th>CId</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -19,10 +22,14 @@
 					<td>@product.PId</td>
 					<td>@product.PName</td>
 					<td>@product.Price</td>
+						<td>@product.CId</td>
+
 					
 					<td>
-						<a asp-action="Edit" asp-route-id="@product.PId" class="btn btn-primary">Edit</a>
-						<a asp-action="Delete" asp-route-id="@product.PId" class="btn btn-danger">Delete</a>
+							<a asp-action="GetProductById" asp-route-id="@product.PId" class="btn btn-info">Details</a>
+                        	<a asp-action="UpdateProduct" asp-route-id="@product.PId" class="btn btn-primary">Edit</a>
+	                      <a asp-action="DeleteProduct" asp-route-id="@product.PId" class="btn btn-danger">Delete</a>
+
 					</td>
 				</tr>
 		}
