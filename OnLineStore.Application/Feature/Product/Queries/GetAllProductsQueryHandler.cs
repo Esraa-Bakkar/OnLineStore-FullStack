@@ -20,17 +20,17 @@ namespace OnLineStore.Application.Feature.Product.Queries
         }
 
 
-        public Task<IEnumerable<ProductViewModel>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductViewModel>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var Products =  _context.Products.AsNoTracking().ToListAsync(cancellationToken);
-            var ProductViewModel = Products.Result.Select(p => new ProductViewModel
+            var Products = await _context.Products.AsNoTracking().ToListAsync(cancellationToken);
+            var ProductViewModel = Products.Select(p => new ProductViewModel
             {
                 PId = p.PId,
                 PName = p.PName,
                 Price = p.Price,
                 ImgePath = p.ImgePath
             });
-            return Task.FromResult(ProductViewModel);
+            return ProductViewModel;
 
         }
     }

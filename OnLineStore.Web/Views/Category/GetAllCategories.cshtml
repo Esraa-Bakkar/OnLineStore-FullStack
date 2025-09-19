@@ -1,0 +1,27 @@
+﻿@model IEnumerable<OnLineStore.Application.ViewModels.CategoryViewModel>
+@{
+    ViewData["Title"] = "GetAllCatogeries";
+    }
+    <h2>GetAllCatogeries</h2>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Discribtion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CId</td>
+                        <td>@item.CName</td>
+                        <td>@item.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-action="Index" asp-controller="Home">Home</a>
