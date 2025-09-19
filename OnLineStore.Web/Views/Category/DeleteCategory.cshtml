@@ -1,0 +1,18 @@
+﻿@model OnLineStore.Application.ViewModels.CategoryViewModel
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h2>Delete Category</h2>
+
+<div class="alert alert-warning">
+    ⚠️ Are you sure you want to delete category:
+    <strong>@Model.CName</strong> (ID = @Model.CId) ?
+</div>
+
+<form asp-action="DeleteCategory" method="post">
+    <input type="hidden" name="id" value="@Model.CId" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="GetAllCategory" class="btn btn-secondary">Cancel</a>
+</form>
