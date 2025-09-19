@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Delete Success";
+}
+
+<h2>Category Deleted</h2>
+
+<div class="alert alert-success">
+    ✅ Category with <strong>ID = @ViewBag.DeletedId</strong> has been deleted successfully.
+</div>
+
+<a asp-action="GetAllCategory" class="btn btn-primary">🔙 Back to Categories</a>
