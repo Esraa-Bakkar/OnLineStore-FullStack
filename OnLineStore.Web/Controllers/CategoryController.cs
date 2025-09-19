@@ -21,7 +21,7 @@ namespace OnLineStore.Web.Controllers
             return View("GetAllCategories", result);
         }
 
-        public async Task<IActionResult> GetCategory([FromQuery] int id)
+        public async Task<IActionResult> GetCategory(int id)
         {
             var result = await _medoatr.Send(new GetCategoryByIdQuery { CId = id });
             return View("GetCategoryById", result);
