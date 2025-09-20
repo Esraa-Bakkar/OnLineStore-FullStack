@@ -1,12 +1,12 @@
 create database Online_store
 use Online_store;
-create table _User(U_ID int ,
+create table _User(
+ U_ID INT IDENTITY(1,1) PRIMARY KEY ,
 U_name varchar(100),
 Admin bit , 
 address varchar(20), 
 email varchar(20),
-phone varchar(11),
-Primary key (U_ID));
+phone varchar(11));
 
 CREATE TABLE catagory (
     C_ID INT IDENTITY(1,1) PRIMARY KEY, 

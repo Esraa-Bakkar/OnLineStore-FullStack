@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OnLineStore.Application.ViewModels.OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2 class="mb-3">Orders List</h2>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Date</th>
+            <th>Total Price</th>
+            <th>Paid</th>
+            <th>Status</th>
+            <th>Cart ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OId</td>
+                <td>@item.UId</td>
+                <td>@(item.Date.HasValue ? item.Date.Value.ToString("yyyy-MM-dd") : "-")</td>
+                <td>@(item.TotalPrice.HasValue ? item.TotalPrice.Value.ToString("C") : "0")</td>
+                <td>
+                    @if (item.Paid == true)
+                    {
+                        <span class="badge bg-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">No</span>
+                    }
+                </td>
+                <td>@item.Status</td>
+                <td>@item.TId</td>
+                <td>
+                    <!-- Details -->
+                    <a asp-action="GetOrderById" asp-route-id="@item.OId" class="btn btn-info btn-sm">Details</a>
+
+                    <!-- Update (GET → form) -->
+                    <a asp-action="UpdateOrder" asp-route-id="@item.OId" class="btn btn-warning btn-sm">Update</a>
+
+                    <!-- Delete (GET → confirmation page) -->
+                    <a asp-action="DeleteOrder" asp-route-id="@item.OId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateOrder" class="btn btn-primary mt-3">➕ Create New Order</a>

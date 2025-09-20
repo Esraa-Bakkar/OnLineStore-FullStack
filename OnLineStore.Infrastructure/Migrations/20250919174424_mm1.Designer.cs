@@ -12,8 +12,8 @@ using OnLineStore.Infrastructure.Data;
 namespace OnLineStore.Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineStoreDbContext))]
-    [Migration("20250919123021_m1")]
-    partial class m1
+    [Migration("20250919174424_mm1")]
+    partial class mm1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,8 +28,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Cart", b =>
                 {
                     b.Property<int>("TId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("T_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TId"));
 
                     b.Property<DateOnly?>("Date")
                         .HasColumnType("date")
@@ -50,6 +53,7 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.CartItem", b =>
                 {
                     b.Property<int>("PId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("P_ID");
 
@@ -80,8 +84,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Catagory", b =>
                 {
                     b.Property<int>("CId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("C_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CId"));
 
                     b.Property<string>("CName")
                         .HasMaxLength(15)
@@ -103,8 +110,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("OId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("O_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OId"));
 
                     b.Property<DateOnly?>("Date")
                         .HasColumnType("date")
@@ -145,8 +155,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("PId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("P_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PId"));
 
                     b.Property<int?>("CId")
                         .HasColumnType("int")
@@ -183,8 +196,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Review", b =>
                 {
                     b.Property<int>("RId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("R_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RId"));
 
                     b.Property<string>("Comment")
                         .HasMaxLength(200)
@@ -216,8 +232,11 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.User", b =>
                 {
                     b.Property<int>("UId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("U_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UId"));
 
                     b.Property<string>("Address")
                         .HasMaxLength(20)
@@ -245,13 +264,6 @@ namespace OnLineStore.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("U_name");
-
-                    b.Property<int>("UidNew")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UId_New");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UidNew"));
 
                     b.HasKey("UId")
                         .HasName("PK___User__5A2040DB134DBC93");

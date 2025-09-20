@@ -1,0 +1,65 @@
+﻿@model OnLineStore.Application.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Update Order";
+}
+
+<h1>Update Order ID: @Model.OId</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="UpdateOrder" method="post">
+
+            <input type="hidden" asp-for="OId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+
+            
+
+            <div class="form-group mb-3">
+                <label asp-for="Paid" class="form-label"></label>
+                <select asp-for="Paid" class="form-control">
+                    <option value="">-- Select --</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                <span asp-validation-for="Paid" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label asp-for="UId" class="control-label"></label>
+                <input asp-for="UId" class="form-control" />
+                <span asp-validation-for="UId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="TId" class="control-label"></label>
+                <input asp-for="TId" type="number" class="form-control" />
+                <span asp-validation-for="TId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="GetAllOrders" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

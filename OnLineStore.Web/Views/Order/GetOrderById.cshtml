@@ -1,0 +1,37 @@
+﻿@model OnLineStore.Application.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2 class="mb-3">Order Details</h2>
+
+<div class="card shadow-sm p-3">
+    <dl class="row">
+
+        <dt class="col-sm-3">Order ID</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.OId)</dd>
+
+        <dt class="col-sm-3">User ID</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.UId)</dd>
+
+        <dt class="col-sm-3">Total Price</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.TotalPrice)</dd>
+
+        <dt class="col-sm-3">Paid</dt>
+        <dd class="col-sm-9">
+            @(Model.Paid == true ? "Yes" : "No")
+        </dd>
+
+        <dt class="col-sm-3">Order Date</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Date)</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Status)</dd>
+
+        <dt class="col-sm-3">Cart ID</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.TId)</dd>
+
+
+    </dl>
+</div>
