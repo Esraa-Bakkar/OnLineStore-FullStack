@@ -32,8 +32,6 @@ namespace OnLineStore.Application.Feature.Order.Queries
 
             return Orders;
 
-
-
         }
     }
 }

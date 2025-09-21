@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<OnLineStore.Application.ViewModels.ReviewViewModel>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h2 class="mb-3">Reviews List</h2>
+
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Review ID</th>
+            <th>User ID</th>
+            <th>Product ID</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Actions</th> 
+        </tr>
+    </thead>
+    <tbody>
+       
+        
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RId</td>
+                <td>@item.UId</td>
+                <td>@item.PId</td>
+                <td>@item.Rating</td>
+                <td>@item.Comment</td>
+                <td>
+                    
+
+                    <a asp-action="GetReview" asp-route-id="@item.RId" class="btn btn-info btn-sm">Details</a>
+
+                    <a asp-action="UpdateReview" asp-route-id="@item.RId" class="btn btn-warning btn-sm">Update</a>
+
+                    <a asp-action="DeleteReview" asp-route-id="@item.RId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<a asp-action="CreateReview" class="btn btn-primary mt-3">➕ Create New Review</a>
