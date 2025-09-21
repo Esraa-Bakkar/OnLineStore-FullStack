@@ -1,36 +1,37 @@
 ﻿@model IEnumerable<OnLineStore.Application.ViewModels.ProductViewModel>
+
 @{
-	ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Product List";
 }
-<a asp-action="CreateProduct" class="btn btn-success mb-3">Create New Product</a>
 
-<h1>Product List</h1>
-<table class="table">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Price</th>
-			<th>CId</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var product in Model)
-		{
-				<tr>
-					<td>@product.PId</td>
-					<td>@product.PName</td>
-					<td>@product.Price</td>
-						<td>@product.CId</td>
+<h2 class="mb-3">Product List</h2>
 
-					
-					<td>
-							<a asp-action="GetProductById" asp-route-id="@product.PId" class="btn btn-info">Details</a>
-                        	<a asp-action="UpdateProduct" asp-route-id="@product.PId" class="btn btn-primary">Edit</a>
-	                      <a asp-action="DeleteProduct" asp-route-id="@product.PId" class="btn btn-danger">Delete</a>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+                <tr>
+                    <td>@product.PId</td>
+                    <td>@product.PName</td>
+                    <td>@product.Price?.ToString("C")</td>
+                    <td>@product.CId</td>
+                    <td>
+                        <a asp-action="GetProductById" asp-route-id="@product.PId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="UpdateProduct" asp-route-id="@product.PId" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeleteProduct" asp-route-id="@product.PId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
 
-					</td>
-				</tr>
-		}
-	</tbody>
+<a asp-action="CreateProduct" class="btn btn-primary mt-3">➕ Create New Product</a>

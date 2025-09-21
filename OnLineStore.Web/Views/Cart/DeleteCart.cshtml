@@ -1,0 +1,28 @@
+﻿@model OnLineStore.Application.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Delete Cart";
+}
+
+<h2 class="text-danger mb-3">⚠️ Are you sure you want to delete this cart?</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Cart ID</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>@(Model.Date?.ToString("yyyy-MM-dd") ?? "-")</td>
+    </tr>
+    <tr>
+        <th>User ID</th>
+        <td>@(Model.UserId?.ToString() ?? "-")</td>
+    </tr>
+</table>
+
+<form asp-action="DeleteCart" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">🗑️ Confirm Delete</button>
+    <a asp-action="GetAllCarts" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OnLineStore.Application.ViewModels.CartViewModel>
+
+@{
+    ViewData["Title"] = "Carts";
+}
+
+<h2 class="mb-3">Carts List</h2>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Cart ID</th>
+            <th>Date</th>
+            <th>User ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@(item.Date?.ToString("yyyy-MM-dd") ?? "-")</td>
+                    <td>@(item.UserId?.ToString() ?? "-")</td>
+                    <td>
+                        <a asp-action="GetCartById" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="UpdateCart" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeleteCart" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateCart" class="btn btn-primary mt-3">➕ Create New Cart</a>

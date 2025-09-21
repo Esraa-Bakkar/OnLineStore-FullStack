@@ -1,0 +1,28 @@
+﻿@model OnLineStore.Application.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Cart Details";
+}
+
+<h2 class="mb-3">Cart Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Cart ID</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>@(Model.Date?.ToString("yyyy-MM-dd") ?? "-")</td>
+    </tr>
+    <tr>
+        <th>User ID</th>
+        <td>@(Model.UserId?.ToString() ?? "-")</td>
+    </tr>
+</table>
+
+<div class="d-flex gap-2">
+    <a asp-action="UpdateCart" asp-route-id="@Model.Id" class="btn btn-warning">✏️ Edit</a>
+    <a asp-action="DeleteCart" asp-route-id="@Model.Id" class="btn btn-danger">🗑️ Delete</a>
+    <a asp-action="GetAllCarts" class="btn btn-secondary">⬅ Back</a>
+</div>
