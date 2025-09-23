@@ -22,6 +22,207 @@ namespace OnLineStore.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("OnLineStore.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("OnLineStore.Domain.Entities.Cart", b =>
                 {
                     b.Property<int>("TId")
@@ -35,8 +236,8 @@ namespace OnLineStore.Infrastructure.Migrations
                         .HasColumnType("date")
                         .HasColumnName("date");
 
-                    b.Property<int?>("UId")
-                        .HasColumnType("int")
+                    b.Property<string>("UId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("U_ID");
 
                     b.HasKey("TId")
@@ -49,14 +250,16 @@ namespace OnLineStore.Infrastructure.Migrations
 
             modelBuilder.Entity("OnLineStore.Domain.Entities.CartItem", b =>
                 {
-                    b.Property<int>("PId")
+                    b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("P_ID");
-
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("int")
                         .HasColumnName("Item_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
+
+                    b.Property<int?>("PId")
+                        .HasColumnType("int")
+                        .HasColumnName("P_ID");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18, 0)")
@@ -70,8 +273,10 @@ namespace OnLineStore.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("T_ID");
 
-                    b.HasKey("PId")
+                    b.HasKey("ItemId")
                         .HasName("PK__cart_ite__A3420A77B4AE4BA1");
+
+                    b.HasIndex("PId");
 
                     b.HasIndex("TId");
 
@@ -135,8 +340,8 @@ namespace OnLineStore.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 0)")
                         .HasColumnName("Total_Price");
 
-                    b.Property<int?>("UId")
-                        .HasColumnType("int")
+                    b.Property<string>("UId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("U_ID");
 
                     b.HasKey("OId")
@@ -212,8 +417,8 @@ namespace OnLineStore.Infrastructure.Migrations
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18, 0)");
 
-                    b.Property<int?>("UId")
-                        .HasColumnType("int")
+                    b.Property<string>("UId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("U_ID");
 
                     b.HasKey("RId")
@@ -226,51 +431,60 @@ namespace OnLineStore.Infrastructure.Migrations
                     b.ToTable("Review", (string)null);
                 });
 
-            modelBuilder.Entity("OnLineStore.Domain.Entities.User", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("UId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("U_ID");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UId"));
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("address");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<bool?>("Admin")
-                        .HasColumnType("bit");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("email");
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<string>("Phone")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("phone");
-
-                    b.Property<string>("UName")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("U_name");
-
-                    b.HasKey("UId")
-                        .HasName("PK___User__5A2040DB134DBC93");
-
-                    b.ToTable("_User", (string)null);
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OnLineStore.Domain.Entities.Cart", b =>
                 {
-                    b.HasOne("OnLineStore.Domain.Entities.User", "UIdNavigation")
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", "UIdNavigation")
                         .WithMany("Carts")
                         .HasForeignKey("UId")
                         .HasConstraintName("FK__cart__U_ID__3D5E1FD2");
@@ -281,9 +495,9 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.CartItem", b =>
                 {
                     b.HasOne("OnLineStore.Domain.Entities.Product", "PIdNavigation")
-                        .WithOne("CartItem")
-                        .HasForeignKey("OnLineStore.Domain.Entities.CartItem", "PId")
-                        .IsRequired()
+                        .WithMany("CartItem")
+                        .HasForeignKey("PId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("FK__cart_item__P_ID__46E78A0C");
 
                     b.HasOne("OnLineStore.Domain.Entities.Cart", "TIdNavigation")
@@ -303,7 +517,7 @@ namespace OnLineStore.Infrastructure.Migrations
                         .HasForeignKey("TId")
                         .HasConstraintName("FK___Order__T_ID__440B1D61");
 
-                    b.HasOne("OnLineStore.Domain.Entities.User", "UIdNavigation")
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", "UIdNavigation")
                         .WithMany("Orders")
                         .HasForeignKey("UId")
                         .HasConstraintName("FK___Order__U_ID__4316F928");
@@ -330,7 +544,7 @@ namespace OnLineStore.Infrastructure.Migrations
                         .HasForeignKey("PId")
                         .HasConstraintName("FK__Review__P_ID__4BAC3F29");
 
-                    b.HasOne("OnLineStore.Domain.Entities.User", "UIdNavigation")
+                    b.HasOne("OnLineStore.Domain.Entities.ApplicationUser", "UIdNavigation")
                         .WithMany("Reviews")
                         .HasForeignKey("UId")
                         .HasConstraintName("FK__Review__U_ID__4AB81AF0");
@@ -338,6 +552,15 @@ namespace OnLineStore.Infrastructure.Migrations
                     b.Navigation("PIdNavigation");
 
                     b.Navigation("UIdNavigation");
+                });
+
+            modelBuilder.Entity("OnLineStore.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Carts");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("OnLineStore.Domain.Entities.Cart", b =>
@@ -355,15 +578,6 @@ namespace OnLineStore.Infrastructure.Migrations
             modelBuilder.Entity("OnLineStore.Domain.Entities.Product", b =>
                 {
                     b.Navigation("CartItem");
-
-                    b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("OnLineStore.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Carts");
-
-                    b.Navigation("Orders");
 
                     b.Navigation("Reviews");
                 });

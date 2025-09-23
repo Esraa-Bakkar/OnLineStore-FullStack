@@ -1,28 +1,28 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnLineStore.Application.Feature.User.Queries;
 using OnLineStore.Application.ViewModels;
-using OnLineStore.Infrastructure.Data;
-
+using OnLineStore.Domain.Entities;
 
 public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
 {
-    private readonly OnlineStoreDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public GetAllUsersQueryHandler(OnlineStoreDbContext context)
+    public GetAllUsersQueryHandler(UserManager<ApplicationUser> userManager)
     {
-        _context = context;
+        _userManager = userManager;
     }
 
     public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await _context.Users
+        var users = await _userManager.Users
             .Select(u => new UserViewModel
             {
-                Id = u.UId,
-                Name = u.UName,
+                Id = u.Id,
+                Name = u.UserName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 Address = u.Address
             })
             .ToListAsync(cancellationToken);

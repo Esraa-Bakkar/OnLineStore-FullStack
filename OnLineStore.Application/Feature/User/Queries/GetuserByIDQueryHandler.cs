@@ -1,36 +1,28 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using OnLineStore.Application.ViewModels;
-using MediatR;
-using OnLineStore.Infrastructure.Data;
+using OnLineStore.Domain.Entities;
 
-namespace OnLineStore.Application.Feature.User.Queries
+public class GetUserByIdQueryHandler : IRequestHandler<GetuserByIDQuery, UserViewModel>
 {
-    public class GetUserByIdQueryHandler : IRequestHandler<GetuserByIDQuery, UserViewModel>
+    private readonly UserManager<ApplicationUser> _userManager;
+    public GetUserByIdQueryHandler(UserManager<ApplicationUser> userManager)
     {
-        private readonly OnlineStoreDbContext _context;
+        _userManager = userManager;
+    }
 
-        public GetUserByIdQueryHandler(OnlineStoreDbContext context)
+    public async Task<UserViewModel> Handle(GetuserByIDQuery request, CancellationToken cancellationToken)
+    {
+        var u = await _userManager.FindByIdAsync(request.Id);
+        if (u == null) return null;
+
+        return new UserViewModel
         {
-            _context = context;
-        }
-
-        public async Task<UserViewModel> Handle(GetuserByIDQuery request, CancellationToken cancellationToken)
-        {
-            var user = await _context.Users
-                .Where(u => u.UId == request.Id)
-                .Select(u => new UserViewModel
-                {
-                    Id = u.UId,
-                    Name = u.UName,
-                    Email = u.Email,
-                    Phone = u.Phone,
-                    Address = u.Address
-                })
-                .FirstOrDefaultAsync(cancellationToken);
-
-            return user;
-        }
+            Id = u.Id,
+            Name = u.UserName,
+            Email = u.Email,
+            Phone = u.PhoneNumber,
+            Address = u.Address
+        };
     }
 }

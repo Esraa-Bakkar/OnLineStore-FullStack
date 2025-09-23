@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿// Order.cs
 namespace OnLineStore.Domain.Entities;
 
 public partial class Order
 {
     public int OId { get; set; }
 
-    public int? UId { get; set; }
+   
+    public string? UId { get; set; }
 
     public decimal? TotalPrice { get; set; }
-
     public bool? Paid { get; set; }
-
     public DateOnly? Date { get; set; }
-
     public string? Status { get; set; }
-
     public int? TId { get; set; }
 
     public virtual Cart? TIdNavigation { get; set; }
 
-    public virtual User? UIdNavigation { get; set; }
+
+    public virtual ApplicationUser? UIdNavigation { get; set; }
 }

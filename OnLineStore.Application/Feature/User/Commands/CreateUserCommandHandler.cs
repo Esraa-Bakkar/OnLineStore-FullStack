@@ -1,44 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnLineStore.Application.ViewModels;
+﻿using Microsoft.AspNetCore.Identity;
 using MediatR;
-using OnLineStore.Infrastructure.Data;
+using OnLineStore.Application.ViewModels;
+using OnLineStore.Domain.Entities;
 
-namespace OnLineStore.Application.Feature.User.Commands
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserViewModel>
 {
-   public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand,UserViewModel>
-    {
-        private readonly OnlineStoreDbContext _context;
-        public CreateUserCommandHandler(OnlineStoreDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<UserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-        {
-           var user = new Domain.Entities.User
-           {
-              
-               UName = request.Name,
-               Email = request.Email,
-               Phone = request.Phone,
-               Address = request.Address
-           };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync(cancellationToken);
-            var userViewModel = new UserViewModel
-            {
-                Id = user.UId,
-                Name = user.UName,
-                Password = request.Password,
-                Email = user.Email,
-                Phone = user.Phone,
-               Address = user.Address
-            };
-            return userViewModel;
+    private readonly UserManager<ApplicationUser> _userManager;
 
+    public CreateUserCommandHandler(UserManager<ApplicationUser> userManager)
+    {
+        _userManager = userManager;
+    }
+
+    public async Task<UserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    {
+        var user = new ApplicationUser
+        {
+            UserName = request.Name,
+            Email = request.Email,
+          
+            PhoneNumber = request.Phone,
+            Address = request.Address
+        };
+
+        var result = await _userManager.CreateAsync(user, request.Password);
+        if (!result.Succeeded)
+        {
+            throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
         }
+
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Name = user.UserName,
+            Email = user.Email,
+            Phone = user.PhoneNumber,
+            Address = user.Address
+        };
     }
 }

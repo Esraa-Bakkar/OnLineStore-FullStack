@@ -22,7 +22,7 @@ public partial class Product
 
     public virtual Catagory? CIdNavigation { get; set; }
 
-    public virtual CartItem? CartItem { get; set; }
+    public virtual ICollection<CartItem>? CartItem { get; set; }
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

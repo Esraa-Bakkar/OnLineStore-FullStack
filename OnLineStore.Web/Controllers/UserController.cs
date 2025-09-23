@@ -25,7 +25,7 @@ namespace OnLineStore.Web.Controllers
             return View("GetAllUsers", users);
         }
         [HttpGet]
-        public async Task <IActionResult> GetUserByID(int id )
+        public async Task <IActionResult> GetUserByID(string id )
         {
             var user =  await _mediator.Send(new GetuserByIDQuery(id));
             if (user == null)
@@ -67,7 +67,7 @@ namespace OnLineStore.Web.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> UpdateUser(int id)
+        public async Task<IActionResult> UpdateUser(string id)
         {
             var user = await _mediator.Send(new GetuserByIDQuery(id));
             if (user == null)
@@ -90,7 +90,7 @@ namespace OnLineStore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _mediator.Send(new GetuserByIDQuery(id));
             if (user == null)
@@ -100,7 +100,7 @@ namespace OnLineStore.Web.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(int id, UserViewModel uservm)
+        public async Task<IActionResult> DeleteUser(string id, UserViewModel uservm)
         {
             var command = new DeleteUserCommand(id);
             await _mediator.Send(command);

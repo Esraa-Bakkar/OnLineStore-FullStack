@@ -12,7 +12,7 @@ namespace OnLineStore.Application.Feature.Cart.Command
         public UpdateCartCommandValidator()
         {
         
-            RuleFor(x => x.UserId).GreaterThan(0).WithMessage("User Id must be greater than 0.");
+          
             RuleFor(x => x.Date).NotEmpty().WithMessage("Date is required.");
         }
     }

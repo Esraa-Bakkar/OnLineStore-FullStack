@@ -10,7 +10,7 @@ namespace OnLineStore.Application.ViewModels
     {
         public int RId { get; set; }
 
-        public int? UId { get; set; }
+        public string? UId { get; set; }
 
         public int? PId { get; set; }
 

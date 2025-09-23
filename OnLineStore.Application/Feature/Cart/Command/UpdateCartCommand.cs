@@ -12,7 +12,7 @@ namespace OnLineStore.Application.Feature.Cart.Command
    public class UpdateCartCommand : IRequest<CartViewModel>
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public DateOnly Date { get; set; }
     }
 }

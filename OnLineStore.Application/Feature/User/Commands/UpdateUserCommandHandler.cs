@@ -1,45 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using OnLineStore.Application.ViewModels;
-using MediatR;
-using OnLineStore.Infrastructure.Data;
 using OnLineStore.Domain.Entities;
 
-namespace OnLineStore.Application.Feature.User.Commands
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserViewModel>
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserViewModel>
+    private readonly UserManager<ApplicationUser> _userManager;
+    public UpdateUserCommandHandler(UserManager<ApplicationUser> userManager)
     {
-        private readonly OnlineStoreDbContext _context;
-        public UpdateUserCommandHandler(OnlineStoreDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<UserViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
-        {
-            var user = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken);
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-            
-            user.UName = request.Name;
-            user.Email = request.Email;
-            user.Phone = request.Phone;
-            user.Address = request.Address;
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync(cancellationToken);
-            return new UserViewModel 
-            {
-               Id=user.UId,
-                Name = user.UName,
-                Email = user.Email,
-                Phone = user.Phone,
-                Address = user.Address
+        _userManager = userManager;
+    }
 
-            };
-        }
+    public async Task<UserViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    {
+        var user = await _userManager.FindByIdAsync(request.Id);
+        if (user == null) throw new Exception("User not found");
+
+        user.UserName = request.Name;
+        user.Email = request.Email;
+        user.PhoneNumber = request.Phone;
+        user.Address = request.Address;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (!result.Succeeded) throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Name = user.UserName,
+            Email = user.Email,
+            Phone = user.PhoneNumber,
+            Address = user.Address
+        };
     }
 }

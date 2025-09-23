@@ -59,7 +59,7 @@ namespace OnLineStore.Web.Controllers
             var command = new UpdateCartCommand
             {
                 Id = cartVw.Id,
-                UserId = cartVw.UserId.Value,
+                UserId = cartVw.UserId,
                 Date = cartVw.Date.Value
             };
 

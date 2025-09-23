@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using OnLineStore.Infrastructure.Data;
 using OnLineStore.Application.Feature.Product.Queries;
 using OnLineStore.Application.Feature.User.Commands;
+using Microsoft.AspNetCore.Identity;
+using OnLineStore.Domain.Entities;
 
 namespace OnLineStore.Web
 {
@@ -19,6 +21,11 @@ namespace OnLineStore.Web
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 ));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+             .AddEntityFrameworkStores<OnlineStoreDbContext>()
+             .AddDefaultTokenProviders();
+
+
             builder.Services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(typeof(GetAllProductsQueryHandler).Assembly));
 
@@ -33,6 +40,8 @@ namespace OnLineStore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseAuthentication();  
+            app.UseAuthorization();
 
             app.UseStaticFiles();
             app.UseRouting();

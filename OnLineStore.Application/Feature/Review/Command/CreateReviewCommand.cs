@@ -10,7 +10,7 @@ namespace OnLineStore.Application.Feature.Review.Command
     public class CreateReviewCommand : IRequest<int>
     {
 
-        public int? UId { get; set; }
+        public string? UId { get; set; }
 
         public int? PId { get; set; }
 

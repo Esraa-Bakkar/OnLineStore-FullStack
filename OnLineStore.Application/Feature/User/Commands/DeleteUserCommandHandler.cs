@@ -1,31 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnLineStore.Application.ViewModels;
-using MediatR;
-using OnLineStore.Infrastructure.Data;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
+using OnLineStore.Domain.Entities;
 
-namespace OnLineStore.Application.Feature.User.Commands
+public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, string>
 {
-   public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, String>
+    private readonly UserManager<ApplicationUser> _userManager;
+    public DeleteUserCommandHandler(UserManager<ApplicationUser> userManager)
     {
-        private readonly OnlineStoreDbContext _context;
-        public DeleteUserCommandHandler(OnlineStoreDbContext context) 
-        {
-            _context = context;
-        }
-        public async Task<String> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
-        {
-            var user = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken);
-            if (user == null)
-            {
-                return $"User with ID {request.Id} not found.";
-            }
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync(cancellationToken);
-            return $"User with ID {request.Id} has been deleted.";
-        }
+        _userManager = userManager;
+    }
+
+    public async Task<string> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    {
+        var user = await _userManager.FindByIdAsync(request.Id);
+        if (user == null) return $"User with ID {request.Id} not found.";
+
+        var result = await _userManager.DeleteAsync(user);
+        if (!result.Succeeded) throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+
+        return $"User with ID {request.Id} has been deleted.";
     }
 }

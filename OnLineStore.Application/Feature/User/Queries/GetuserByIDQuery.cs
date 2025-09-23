@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnLineStore.Application.ViewModels;
+﻿// GetuserByIDQuery
 using MediatR;
+using OnLineStore.Application.ViewModels;
 
-namespace OnLineStore.Application.Feature.User.Queries
+public class GetuserByIDQuery : IRequest<UserViewModel>
 {
-   public class GetuserByIDQuery:IRequest<UserViewModel>
-    {
-        public int Id { get; set; }
-        public GetuserByIDQuery(int id) 
-        { 
-            Id = id;
-        }
-    }
+    public string Id { get; set; }
+    public GetuserByIDQuery(string id) { Id = id; }
 }

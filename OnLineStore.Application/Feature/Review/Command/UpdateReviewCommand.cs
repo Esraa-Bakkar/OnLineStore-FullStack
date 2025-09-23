@@ -11,7 +11,7 @@ namespace OnLineStore.Application.Feature.Review.Command
     public class UpdateReviewCommand : IRequest<ReviewViewModel>
     {
         public int RId { get; set; }
-        public int? UId { get; set; }
+        public string? UId { get; set; }
 
         public int? PId { get; set; }
 
