@@ -9,13 +9,15 @@ namespace OnLineStore.Web.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
-        
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -50,8 +52,42 @@ namespace OnLineStore.Web.Controllers
            
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Register(RegistrationViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = new ApplicationUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+
+                PhoneNumber = model.PhoneNumber,
+                Address = model.Address
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            return RedirectToAction("Login");
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

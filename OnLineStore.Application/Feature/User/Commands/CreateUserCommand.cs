@@ -5,6 +5,7 @@ using OnLineStore.Application.ViewModels;
 public class CreateUserCommand : IRequest<UserViewModel>
 {
     public string Name { get; set; }
+    public String UserName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
     public string Phone { get; set; }

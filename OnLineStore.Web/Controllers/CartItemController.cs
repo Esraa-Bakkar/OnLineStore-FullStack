@@ -11,7 +11,7 @@ namespace OnLineStore.Web.Controllers
 {
     public class CartItemController : Controller
     {
-        IMediator _mediator;
+        private readonly IMediator _mediator;
         public CartItemController(IMediator mediator)
         {
             _mediator = mediator;
