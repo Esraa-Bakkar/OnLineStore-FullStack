@@ -1,0 +1,43 @@
+﻿@model IEnumerable<OnLineStore.Application.ViewModels.CartItemViewModel>
+
+@{
+    ViewData["Title"] = "Cart Items List";
+}
+
+<h2 class="mb-3">Cart Items List</h2>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Item ID</th>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.ItemId</td>
+                    <td>@item.PId</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a asp-action="GetCartItemByID" asp-route-id="@item.ItemId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="UpdateCartItem" asp-route-id="@item.ItemId" class="btn btn-warning btn-sm">Edit</a>
+
+                        <form asp-action="DeleteCartItem" asp-route-id="@item.ItemId" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateCartItem" class="btn btn-primary mt-3">➕ Create New Cart Item</a>

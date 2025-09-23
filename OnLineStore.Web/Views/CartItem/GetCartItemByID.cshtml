@@ -1,0 +1,30 @@
+﻿@model OnLineStore.Application.ViewModels.CartItemViewModel
+
+@{
+    ViewData["Title"] = "Cart Item Details";
+}
+
+<h2 class="mb-3">Cart Item Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Item ID</th>
+        <td>@Model.ItemId</td>
+    </tr>
+    <tr>
+        <th>Product ID</th>
+        <td>@Model.PId</td>
+    </tr>
+    <tr>
+        <th>Quantity</th>
+        <td>@Model.Quantity</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>@Model.Price?.ToString("C") ?? "-"</td>
+    </tr>
+</table>
+
+<div class="d-flex gap-2">
+    <a asp-action="GetAllCartItems" class="btn btn-secondary">⬅ Back</a>
+</div>

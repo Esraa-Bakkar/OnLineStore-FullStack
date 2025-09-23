@@ -1,0 +1,29 @@
+﻿@model OnLineStore.Application.ViewModels.CartItemViewModel
+
+@{
+    ViewData["Title"] = "Edit Cart Item";
+}
+
+<h2>Edit Cart Item</h2>
+
+<form asp-action="UpdateCartItem" method="post">
+    <input type="hidden" asp-for="ItemId" />
+    <div class="mb-3">
+        <label asp-for="PId" class="form-label"></label>
+        <input asp-for="PId" class="form-control" />
+        <span asp-validation-for="PId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Quantity" class="form-label"></label>
+        <input asp-for="Quantity" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="GetAllCartItems" class="btn btn-secondary">Cancel</a>
+</form>
+

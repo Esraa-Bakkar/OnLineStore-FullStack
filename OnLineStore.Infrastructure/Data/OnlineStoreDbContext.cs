@@ -56,29 +56,40 @@ public partial class OnlineStoreDbContext : DbContext
 
         modelBuilder.Entity<CartItem>(entity =>
         {
-            entity.HasKey(e => e.PId).HasName("PK__cart_ite__A3420A77B4AE4BA1");
+            entity.HasKey(e => e.ItemId)
+                .HasName("PK__cart_ite__A3420A77B4AE4BA1");
 
             entity.ToTable("cart_item");
 
+            entity.Property(e => e.ItemId)
+                .HasColumnName("Item_ID")
+                .ValueGeneratedOnAdd();
+
             entity.Property(e => e.PId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("P_ID");
-            entity.Property(e => e.ItemId).HasColumnName("Item_ID");
+                .HasColumnName("P_ID"); 
+
+            entity.Property(e => e.TId)
+                .HasColumnName("T_ID");
+
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("price");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.TId).HasColumnName("T_ID");
 
-            entity.HasOne(d => d.PIdNavigation).WithOne(p => p.CartItem)
+            entity.Property(e => e.Quantity)
+                .HasColumnName("quantity");
+
+            entity.HasOne(d => d.PIdNavigation)
+                .WithOne(p => p.CartItem)
                 .HasForeignKey<CartItem>(d => d.PId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__cart_item__P_ID__46E78A0C");
 
-            entity.HasOne(d => d.TIdNavigation).WithMany(p => p.CartItems)
+            entity.HasOne(d => d.TIdNavigation)
+                .WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.TId)
                 .HasConstraintName("FK__cart_item__T_ID__47DBAE45");
         });
+
 
         modelBuilder.Entity<Catagory>(entity =>
         {
