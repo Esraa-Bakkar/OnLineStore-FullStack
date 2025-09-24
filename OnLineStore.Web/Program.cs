@@ -4,12 +4,13 @@ using OnLineStore.Application.Feature.Product.Queries;
 using OnLineStore.Application.Feature.User.Commands;
 using Microsoft.AspNetCore.Identity;
 using OnLineStore.Domain.Entities;
+using Hospital.Infrastructure.Persistence;
 
 namespace OnLineStore.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,11 @@ namespace OnLineStore.Web
 
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                await RolesSeeder.SeedRolesAsync(scope.ServiceProvider);
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

@@ -83,7 +83,7 @@ namespace OnLineStore.Web.Controllers
                 }
                 return View(model);
             }
-
+            await _userManager.AddToRoleAsync(user, "Customer");
             return RedirectToAction("Login");
         }
 
