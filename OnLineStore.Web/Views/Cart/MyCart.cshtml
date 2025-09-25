@@ -1,0 +1,75 @@
+﻿
+@model OnLineStore.Application.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_StoreLayOut.cshtml";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Your Shopping Cart</h2>
+
+    @if (Model == null || !Model.Items.Any())
+    {
+        <div class="alert alert-info text-center">
+            <p>Your cart is currently empty.</p>
+            <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-primary">Start Shopping</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 50%;">Product</th>
+                        <th scope="col" class="text-center">Price</th>
+                        <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-center">Total</th>
+                        <th scope="col" class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                   
+                                    <div>
+                                        <h6 class="mb-0">@item.PId</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">@item.Price</td>
+                            <td class="text-center">@item.Quantity</td>
+                            
+                            <td class="text-center">
+                                <form asp-controller="CartItem" asp-action="DeleteCartItem" asp-route-id="@item.ItemId" method="post">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="table-light">
+                        <td colspan="3" class="text-end fw-bold fs-5">Grand Total</td>
+                        
+                    </tr>
+                </tfoot>
+            </table>    
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+            </a>
+            <a href="#" class="btn btn-success">
+                Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    }
+</div>

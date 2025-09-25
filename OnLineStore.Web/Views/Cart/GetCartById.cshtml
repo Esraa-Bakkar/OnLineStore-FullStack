@@ -2,27 +2,70 @@
 
 @{
     ViewData["Title"] = "Cart Details";
+    Layout = "~/Views/Shared/_StoreLayOut.cshtml"; 
 }
 
-<h2 class="mb-3">Cart Details</h2>
+<div class="container my-4">
+    <h2 class="mb-3">Cart Details</h2>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Cart ID</th>
-        <td>@Model.Id</td>
-    </tr>
-    <tr>
-        <th>Date</th>
-        <td>@(Model.Date?.ToString("yyyy-MM-dd") ?? "-")</td>
-    </tr>
-    <tr>
-        <th>User ID</th>
-        <td>@(Model.UserId?.ToString() ?? "-")</td>
-    </tr>
-</table>
+    <table class="table table-bordered mb-4">
+        <tr>
+            <th style="width: 150px;">Cart ID</th>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>@(Model.Date?.ToString("yyyy-MM-dd") ?? "-")</td>
+        </tr>
+        <tr>
+            <th>User ID</th>
+            <td>@(Model.UserId?.ToString() ?? "-")</td>
+        </tr>
+    </table>
 
-<div class="d-flex gap-2">
-    <a asp-action="UpdateCart" asp-route-id="@Model.Id" class="btn btn-warning">✏️ Edit</a>
-    <a asp-action="DeleteCart" asp-route-id="@Model.Id" class="btn btn-danger">🗑️ Delete</a>
-    <a asp-action="GetAllCarts" class="btn btn-secondary">⬅ Back</a>
+  
+    <h3 class="mt-5 mb-3">Items in this Cart</h3>
+
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-end">Price</th>
+                    <th class="text-end">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.PId</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-end">@item.Price</td>
+                        
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="table-light">
+                   
+                    
+                </tr>
+            </tfoot>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-secondary">This cart has no items.</div>
+    }
+   
+
+
+    <div class="d-flex gap-2 mt-4">
+        <a asp-action="UpdateCart" asp-route-id="@Model.Id" class="btn btn-warning">✏️ Edit</a>
+        <a asp-action="DeleteCart" asp-route-id="@Model.Id" class="btn btn-danger">🗑️ Delete</a>
+        <a asp-action="GetAllCarts" class="btn btn-secondary">⬅ Back</a>
+    </div>
 </div>

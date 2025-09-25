@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnLineStore.Application.Feature.Cart.Command;
 using OnLineStore.Application.ViewModels;
 using OnLineStore.Domain.Entities;
 using System.Threading.Tasks;
@@ -10,11 +12,12 @@ namespace OnLineStore.Web.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly IMediator _mediator;
+        public AccountController(IMediator mediator, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _mediator = mediator;
         }
 
 
@@ -68,7 +71,6 @@ namespace OnLineStore.Web.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-
                 PhoneNumber = model.PhoneNumber,
                 Address = model.Address
             };
@@ -83,6 +85,13 @@ namespace OnLineStore.Web.Controllers
                 }
                 return View(model);
             }
+            var createCartCommand = new CreateCartCommand
+            {
+                UserId = user.Id,
+                Date = DateOnly.FromDateTime(DateTime.Now) 
+            };
+
+            await _mediator.Send(createCartCommand);
             await _userManager.AddToRoleAsync(user, "Customer");
             return RedirectToAction("Login");
         }

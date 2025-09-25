@@ -25,12 +25,12 @@
                                     <img src="@product.ImgePath" class="card-img-top" alt="@product.PName" style="height: 250px; object-fit: cover;" />
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">@product.PName</h5>
-                                                <form asp-controller="Cart" asp-action="Create Cart" method="post" class="d-inline w-100">
-                                               <input type="hidden" name="productId" value="@product.PId" />
-                                              <button type="submit" class="btn btn-success w-100 mt-auto">
-                                             <i class="fas fa-shopping-cart me-1"></i> Add to Cart
-                                               </button>
-                                                </form>
+                        <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline w-100 mt-auto">
+                            <input type="hidden" name="productId" value="@product.PId" />
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-shopping-cart me-1"></i> Add to Cart
+                            </button>
+                        </form>
 
                                     </div>
                                 </div>

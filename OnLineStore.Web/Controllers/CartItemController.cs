@@ -81,7 +81,7 @@ namespace OnLineStore.Web.Controllers
         public async Task<IActionResult> DeleteCartItemConfirmed(int id)
         {
             await _mediator.Send(new DeleteCartItemCommand { Id = id });
-            return RedirectToAction("GetAllCartItems");
+            return Ok();
         }
 
 

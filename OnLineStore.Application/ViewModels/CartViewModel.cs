@@ -10,6 +10,7 @@ namespace OnLineStore.Application.ViewModels
     {
         public int Id { get; set; }
         public DateOnly? Date { get; set; }
+        public List<CartItemViewModel> Items { get; set; } = new List<CartItemViewModel>();
         public string? UserId { get; set; }
     }
 }
