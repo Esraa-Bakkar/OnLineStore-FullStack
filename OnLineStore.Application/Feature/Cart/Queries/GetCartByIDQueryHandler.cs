@@ -16,29 +16,29 @@ namespace OnLineStore.Application.Feature.Cart.Queries
 
         public async Task<CartViewModel> Handle(GetCartByIDQuery request, CancellationToken cancellationToken)
         {
-            
+
             var cartViewModel = await _context.Carts
-                .Where(c => c.TId == request.Id)
-                .Select(cart => new CartViewModel 
-                {
-                    Id = cart.TId,
-                    Date = cart.Date,
-                    UserId = cart.UId,
+      .Where(c => c.TId == request.Id)
+      .Include(c => c.CartItems)                         
+          .ThenInclude(item => item.PIdNavigation)       
+      .Select(cart => new CartViewModel
+      {
+          Id = cart.TId,
+          Date = cart.Date,
+          UserId = cart.UId,
 
-                   
-                    Items = cart.CartItems.Select(item => new CartItemViewModel
-                    {
-                        ItemId = item.ItemId,
-                        PId = item.PId,
-                       // ProductName = item.PIdNavigation.PName, // اسم المنتج من الجدول المرتبط
-                        //ProductImagePath = item.PIdNavigation.ImgePath, // صورة المنتج
-                        Quantity = item.Quantity,
-                        Price = item.Price
-                    }).ToList(),
+          Items = cart.CartItems.Select(item => new CartItemViewModel
+          {
+              ItemId = item.ItemId,
+              PId = item.PId,
+              ProductName = item.PIdNavigation.PName,     
+              ImagPath = item.PIdNavigation.ImgePath,     
+              Quantity = item.Quantity,
+              Price = item.Price
+          }).ToList(),
+      })
+      .FirstOrDefaultAsync(cancellationToken);
 
-                    
-                })
-                .FirstOrDefaultAsync(cancellationToken);
 
             if (cartViewModel == null)
             {

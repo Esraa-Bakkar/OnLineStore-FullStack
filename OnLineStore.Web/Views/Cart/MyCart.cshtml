@@ -1,8 +1,7 @@
-﻿
-@model OnLineStore.Application.ViewModels.CartViewModel
+﻿@model OnLineStore.Application.ViewModels.CartViewModel
 
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = "My Cart";
     Layout = "~/Views/Shared/_StoreLayOut.cshtml";
 }
 
@@ -11,65 +10,69 @@
 
     @if (Model == null || !Model.Items.Any())
     {
-        <div class="alert alert-info text-center">
-            <p>Your cart is currently empty.</p>
-            <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-primary">Start Shopping</a>
-        </div>
+            <div class="alert alert-info text-center">
+                <p>Your cart is currently empty.</p>
+                <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-primary">Start Shopping</a>
+            </div>
     }
     else
     {
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col" style="width: 50%;">Product</th>
-                        <th scope="col" class="text-center">Price</th>
-                        <th scope="col" class="text-center">Quantity</th>
-                        <th scope="col" class="text-center">Total</th>
-                        <th scope="col" class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 40%;">Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     @foreach (var item in Model.Items)
                     {
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                   
-                                    <div>
-                                        <h6 class="mb-0">@item.PId</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">@item.Price</td>
-                            <td class="text-center">@item.Quantity</td>
-                            
-                            <td class="text-center">
-                                <form asp-controller="CartItem" asp-action="DeleteCartItem" asp-route-id="@item.ItemId" method="post">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/images/@item.ImagPath" alt="@item.ProductName" width="70" class="me-3 border rounded" />
+                                            <div>
+                                                <h6 class="mb-1">@item.ProductName</h6>
+                                                <small class="text-muted">Product ID: @item.PId</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">@((item.Price ?? 0).ToString("C"))</td>
+                                    <td class="text-center">@item.Quantity</td>
+                                    <td class="text-center">@(((item.Price ?? 0) * item.Quantity).Value.ToString("C"))</td>
+                                    <td class="text-center">
+                                        <form asp-controller="CartItem" asp-action="DeleteCartItem" asp-route-id="@item.ItemId" method="post">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                     }
-                </tbody>
-                <tfoot>
-                    <tr class="table-light">
-                        <td colspan="3" class="text-end fw-bold fs-5">Grand Total</td>
-                        
-                    </tr>
-                </tfoot>
-            </table>    
-        </div>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-light">
+                            <td colspan="3" class="text-end fw-bold fs-5">Grand Total</td>
+                            <td class="text-center fw-bold fs-5">
+                            @Model.Items.Sum(i => (i.Price ?? 0) * i.Quantity).Value.ToString("C")
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
-        <div class="d-flex justify-content-between mt-4">
-            <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-secondary">
-                <i class="fas fa-arrow-left me-2"></i> Continue Shopping
-            </a>
-            <a href="#" class="btn btn-success">
-                Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                </a>
+                <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">
+                    Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
     }
 </div>

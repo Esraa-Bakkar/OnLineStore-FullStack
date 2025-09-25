@@ -6,13 +6,14 @@ using OnLineStore.Application.ViewModels;
 using OnLineStore.Application.Feature.User.Queries;
 using OnLineStore.Application.Feature.User.Commands;
 using OnLineStore.Domain.Entities;
+using System.Security.Claims;
 
 
 namespace OnLineStore.Web.Controllers
 {
     public class UserController : Controller
     {
-       private readonly IMediator _mediator;
+        private readonly IMediator _mediator;
         public UserController(IMediator mediator)
         {
             _mediator = mediator;
@@ -25,9 +26,9 @@ namespace OnLineStore.Web.Controllers
             return View("GetAllUsers", users);
         }
         [HttpGet]
-        public async Task <IActionResult> GetUserByID(string id )
+        public async Task<IActionResult> GetUserByID(string id)
         {
-            var user =  await _mediator.Send(new GetuserByIDQuery(id));
+            var user = await _mediator.Send(new GetuserByIDQuery(id));
             if (user == null)
             {
                 return NotFound();
@@ -44,7 +45,7 @@ namespace OnLineStore.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(string Name , string Email,string password,string phone , string address)
+        public async Task<IActionResult> CreateUser(string Name, string Email, string password, string phone, string address)
         {
 
             var result = await _mediator.Send(new CreateUserCommand
@@ -57,7 +58,7 @@ namespace OnLineStore.Web.Controllers
 
 
             });
-            if (result!=null)
+            if (result != null)
             {
                 return RedirectToAction("GetAllUsers");
             }
@@ -81,11 +82,11 @@ namespace OnLineStore.Web.Controllers
         public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
         {
             if (!ModelState.IsValid)
-            {  
+            {
                 return View(command);
-                
+
             }
-             await _mediator.Send(command);
+            await _mediator.Send(command);
             return RedirectToAction("GetAllUsers");
         }
 
@@ -106,7 +107,17 @@ namespace OnLineStore.Web.Controllers
             await _mediator.Send(command);
             return RedirectToAction("GetAllUsers");
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> GetAccount()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Challenge();
+            }
+            var result = await _mediator.Send( new GetuserByIDQuery(userId));
+            return View(result);
+        }
 
 
 
