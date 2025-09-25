@@ -100,6 +100,13 @@ namespace OnLineStore.Web.Controllers
             await _mediator.Send(new DeleteProductCommand(id));
             return RedirectToAction("GetAllProducts");
         }
+        [HttpGet]
+        public  async Task<IActionResult> GetAllProductsForCustmer()
+        {
+            var products = await _mediator.Send(new GetAllProductsQuery());
+            return View("GetProducts",products); 
+        }
+
 
     }
 }

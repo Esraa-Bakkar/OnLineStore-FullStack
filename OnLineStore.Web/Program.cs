@@ -52,10 +52,9 @@ namespace OnLineStore.Web
             app.UseStaticFiles();
             app.UseRouting();
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
+           name: "default",
+         pattern: "{controller=Product}/{action=GetAllProductsForCustmer}");
+         app.Run();
         }
     }
 }
