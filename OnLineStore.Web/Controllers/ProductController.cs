@@ -95,9 +95,10 @@ namespace OnLineStore.Web.Controllers
             return View(product);
         }
         [HttpPost, ActionName("DeleteProduct")]
-        public async Task<IActionResult> DeleteProductConfirmed(int id)
+        public async Task<IActionResult> DeleteProductConfirmed(int PId) 
         {
-            await _mediator.Send(new DeleteProductCommand(id));
+            var command = new DeleteProductCommand(PId);
+            await _mediator.Send(command);
             return RedirectToAction("GetAllProducts");
         }
         [HttpGet]
