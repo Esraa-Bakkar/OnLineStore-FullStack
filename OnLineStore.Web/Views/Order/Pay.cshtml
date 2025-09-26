@@ -1,0 +1,14 @@
+﻿@model OnLineStore.Application.ViewModels.OrderViewModel
+
+<div class="container mt-5">
+    <h2 class="mb-4">💳 Payment</h2>
+
+    <div class="card p-4">
+        <p><strong>Order ID:</strong> @Model.OId</p>
+        <p><strong>Total Price:</strong> @Model.TotalPrice.Value.ToString("C")</p>
+        <form asp-controller="Order" asp-action="Payment" method="get">
+    <input type="hidden" name="orderId" value="@Model.OId" />
+    <button type="submit" class="btn btn-success">💵 Pay Now</button>
+</form>
+    </div>
+</div>

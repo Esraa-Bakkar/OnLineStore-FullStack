@@ -1,0 +1,70 @@
+﻿@model OnLineStore.Application.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">🛒 Order Summary</h2>
+
+    @if (Model == null || Model.CartItems == null || !Model.CartItems.Any())
+    {
+            <div class="alert alert-warning text-center">
+                <h4>😕 Your order is empty</h4>
+                <p>Please add items to your cart before proceeding to checkout.</p>
+                <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-primary mt-3">
+                    🛍️ Continue Shopping
+                </a>
+            </div>
+    }
+    else
+    {
+            <!-- Order Summary -->
+            @* <div class="card p-3 mb-4"> *@
+            @*     <h4>Order Details</h4> *@
+            @*     <p><strong>Order ID:</strong> @Model.OId</p> *@
+            @*     <p><strong>Date:</strong> @Model.Date?.ToString("yyyy-MM-dd")</p> *@
+            @*     <p><strong>Status:</strong> @Model.Status</p> *@
+            @*     <p><strong>Paid:</strong> @(Model.Paid)</p> *@
+            @* </div> *@
+
+            <!-- Cart Items -->
+            <div class="card p-3 mb-4">
+                <h4>Items</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.CartItems)
+                    {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price</td>
+                                    <td>@((item.Price ) * item.Quantity).</td>
+                                </tr>
+                    }
+                    </tbody>
+                </table>
+
+                <div class="text-end">
+                    <h4>Total: @Model.TotalPrice</h4>
+                    
+
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center">
+                <a asp-controller="Order" asp-action="Pay" asp-route-orderId="@Model.OId" class="btn btn-primary btn-lg">
+                    💳 Go to Payment
+                </a>
+            </div>
+    }
+</div>

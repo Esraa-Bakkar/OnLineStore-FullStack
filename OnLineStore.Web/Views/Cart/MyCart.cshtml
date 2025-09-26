@@ -43,7 +43,7 @@
                                     </td>
                                     <td class="text-center">@((item.Price ?? 0).ToString("C"))</td>
                                     <td class="text-center">@item.Quantity</td>
-                                    <td class="text-center">@(((item.Price ?? 0) * item.Quantity).Value.ToString("C"))</td>
+                                    <td class="text-center">@((item.Price ?? 0).ToString("C"))</td>
                                     <td class="text-center">
                                         <form asp-controller="CartItem" asp-action="DeleteCartItem" asp-route-id="@item.ItemId" method="post">
                                             <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -70,7 +70,7 @@
                 <a asp-controller="Product" asp-action="GetAllProductsForCustmer" class="btn btn-secondary">
                     <i class="fas fa-arrow-left me-2"></i> Continue Shopping
                 </a>
-                <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">
+                        <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">
                     Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>

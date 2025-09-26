@@ -1,0 +1,33 @@
+﻿@model OnLineStore.Application.ViewModels.PaymentMethodViewModel
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">💳 Payment for Order #@Model.OrderId</h2>
+
+    <div class="card p-4">
+        <p><strong>Amount to Pay:</strong> @Model.Amount.ToString("C")</p>
+
+        <form asp-action="ConfirmPayment" method="post">
+            <input type="hidden" asp-for="OrderId" />
+
+            <div class="mb-3">
+                <label asp-for="PaymentMethod" class="form-label">Choose Payment Method</label>
+                <select asp-for="PaymentMethod" class="form-select" required>
+                    <option value="">-- Select Payment Method --</option>
+                    <option value="CreditCard">Credit Card</option>
+                    <option value="Paypal">Paypal</option>
+                    <option value="Cash">Cash</option>
+                </select>
+            </div>
+            </form>
+            <div>
+                <a asp-controller="Order" asp-action="PaymentSuccess" class="btn btn-secondary">
+        pay
+    </a>
+            </div>
+
+    </div>
+</div>

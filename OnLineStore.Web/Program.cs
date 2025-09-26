@@ -46,11 +46,14 @@ namespace OnLineStore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseAuthentication();  
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
-            app.UseStaticFiles();
-            app.UseRouting();
             app.MapControllerRoute(
            name: "default",
          pattern: "{controller=Product}/{action=GetAllProductsForCustmer}");

@@ -11,6 +11,7 @@ namespace OnLineStore.Application.ViewModels
         public int OId { get; set; }
 
         public string? UId { get; set; }
+       
 
         public decimal? TotalPrice { get; set; }
 
@@ -19,6 +20,8 @@ namespace OnLineStore.Application.ViewModels
         public DateOnly? Date { get; set; }
 
         public string? Status { get; set; }
+        public CartViewModel  cart {  get; set; }
+        public List<CartItemViewModel> CartItems { get; set; } = new List<CartItemViewModel>();
 
         public int? TId { get; set; }
     }
