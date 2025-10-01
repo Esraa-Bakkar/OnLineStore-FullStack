@@ -30,6 +30,9 @@ The app demonstrates common e-commerce flows such as product listing, shopping c
 > **Note:** This solution is intentionally practical — it follows the *ideas* of Clean Architecture (layered domain, application, infrastructure, presentation) while keeping the structure simple and approachable for learning and quick iteration.
 
 ---
+ProductView 
+<img width="1335" height="688" alt="HomeView" src="https://github.com/user-attachments/assets/216a2fff-048a-459e-9434-0e9a911eedf7" />
+
 
 ## Key Features
 
